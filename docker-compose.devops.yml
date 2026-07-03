@@ -1,0 +1,57 @@
+services:
+
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+
+    container_name: jenkins
+
+    privileged: true
+
+    user: root
+
+    restart: unless-stopped
+
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    networks:
+      - devops
+
+  sonarqube:
+
+    image: sonarqube:lts-community
+
+    container_name: sonarqube
+
+    restart: unless-stopped
+
+    ports:
+      - "9000:9000"
+
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+
+    volumes:
+      - sonar_data:/opt/sonarqube/data
+      - sonar_logs:/opt/sonarqube/logs
+      - sonar_extensions:/opt/sonarqube/extensions
+
+    networks:
+      - devops
+
+networks:
+  devops:
+
+volumes:
+  jenkins_home:
+
+  sonar_data:
+
+  sonar_logs:
+
+  sonar_extensions:

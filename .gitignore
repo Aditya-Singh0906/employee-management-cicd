@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual Environment
+venv/
+.env
+
+# Environment files
+application/.env
+
+# IDE
+.vscode/
+
+# Logs
+*.log
+
+# Database
+*.db
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# OS files
+.DS_Store
+Thumbs.db

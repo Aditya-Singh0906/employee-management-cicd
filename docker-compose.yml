@@ -1,0 +1,51 @@
+services:
+  api:
+    build:
+      context: ./application
+      dockerfile: Dockerfile
+
+    container_name: employee-api
+
+    ports:
+      - "5000:5000"
+
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/employee_db
+      SECRET_KEY: super-secret
+      JWT_SECRET_KEY: jwt-secret
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    volumes:
+      - ./application:/app
+
+    command: python run.py
+
+  db:
+    image: postgres:16
+
+    container_name: employee-db
+
+    restart: always
+
+    environment:
+      POSTGRES_DB: employee_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d employee_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
