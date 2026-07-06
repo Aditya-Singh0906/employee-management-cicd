@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "YOUR_DOCKERHUB_USERNAME/employee-management-api"
+        IMAGE_NAME = "employee-management-api"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
@@ -14,37 +14,53 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Dependencies & Test') {
             steps {
-                dir('application') {
-                    sh 'pip install -r requirements.txt'
-                }
-            }
-        }
+                script {
+                    docker.image('python:3.12-slim').inside {
 
-        stage('Run Tests') {
-            steps {
-                dir('application') {
-                    sh 'pytest'
+                        dir('application') {
+
+                            sh '''
+                            python --version
+                            pip install --upgrade pip
+                            pip install -r requirements.txt
+
+                            pytest
+                            '''
+
+                        }
+                    }
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG application'
+
+                sh """
+                docker build -t ${IMAGE_NAME}:${IMAGE_TAG} application
+                """
+
             }
         }
 
     }
 
     post {
+
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'Pipeline Completed Successfully'
         }
 
         failure {
-            echo 'Pipeline failed!'
+            echo 'Pipeline Failed'
         }
+
+        always {
+            cleanWs()
+        }
+
     }
+
 }
