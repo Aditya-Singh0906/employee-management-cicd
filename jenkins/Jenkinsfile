@@ -14,16 +14,24 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Inspect Mounted Directory') {
             steps {
                 sh '''
                 docker run --rm \
-                -v "$PWD/application":/app \
+                -v "$WORKSPACE/application":/app \
                 -w /app \
                 python:3.12-slim \
                 sh -c "
-                    pip install --upgrade pip &&
-                    pip install -r requirements.txt
+                    echo 'Current directory:'
+                    pwd
+
+                    echo ''
+                    echo 'Files in /app:'
+                    ls -lah
+
+                    echo ''
+                    echo 'Recursive listing:'
+                    find . -maxdepth 2
                 "
                 '''
             }
