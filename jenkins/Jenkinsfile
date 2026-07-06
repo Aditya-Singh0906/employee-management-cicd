@@ -14,18 +14,19 @@ pipeline {
             }
         }
 
-        stage('Python Build Container') {
+        stage('Debug Workspace') {
             steps {
                 sh '''
-                docker run --rm \
-                  -v "$PWD":/workspace \
-                  -w /workspace/application \
-                  python:3.12-slim \
-                  sh -c "
-                    pip install --upgrade pip &&
-                    pip install -r requirements.txt &&
-                    pytest
-                  "
+                echo "Current Directory:"
+                pwd
+
+                echo ""
+                echo "Root Files:"
+                ls -la
+
+                echo ""
+                echo "Application Folder:"
+                ls -la application
                 '''
             }
         }
