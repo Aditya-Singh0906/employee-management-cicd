@@ -14,43 +14,34 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies & Test') {
+        stage('Python Build Container') {
             steps {
-                script {
-                    docker.image('python:3.12-slim').inside {
-
-                        dir('application') {
-
-                            sh '''
-                            python --version
-                            pip install --upgrade pip
-                            pip install -r requirements.txt
-
-                            pytest
-                            '''
-
-                        }
-                    }
-                }
+                sh '''
+                docker run --rm \
+                  -v "$PWD":/workspace \
+                  -w /workspace/application \
+                  python:3.12-slim \
+                  sh -c "
+                    pip install --upgrade pip &&
+                    pip install -r requirements.txt &&
+                    pytest
+                  "
+                '''
             }
         }
 
         stage('Build Docker Image') {
             steps {
-
-                sh """
+                sh '''
                 docker build -t ${IMAGE_NAME}:${IMAGE_TAG} application
-                """
-
+                '''
             }
         }
-
     }
 
     post {
-
         success {
-            echo 'Pipeline Completed Successfully'
+            echo 'Pipeline Successful'
         }
 
         failure {
@@ -60,7 +51,5 @@ pipeline {
         always {
             cleanWs()
         }
-
     }
-
 }
