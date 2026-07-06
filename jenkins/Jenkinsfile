@@ -6,44 +6,15 @@ pipeline {
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
+    tools {
+        sonarQubeScanner 'SonarScanner'
+    }
+
     stages {
 
         stage('Checkout') {
             steps {
                 checkout scm
-            }
-        }
-
-        stage('Inspect Jenkins Workspace') {
-            steps {
-                sh '''
-                    echo "==============================="
-                    echo "JENKINS WORKSPACE"
-                    echo "==============================="
-
-                    echo "WORKSPACE = $WORKSPACE"
-                    echo "PWD = $(pwd)"
-
-                    echo ""
-                    echo "===== ROOT DIRECTORY ====="
-                    ls -lah
-
-                    echo ""
-                    echo "===== APPLICATION DIRECTORY ====="
-                    ls -lah application || true
-
-                    echo ""
-                    echo "===== REQUIREMENTS ====="
-                    ls -lah application/requirements.txt || true
-
-                    echo ""
-                    echo "===== DOCKERFILE ====="
-                    ls -lah application/Dockerfile || true
-
-                    echo ""
-                    echo "===== COMPLETE TREE ====="
-                    find . -maxdepth 3
-                '''
             }
         }
 
@@ -55,15 +26,32 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                        sonar-scanner
+                    '''
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo "Pipeline completed successfully."
+            echo 'Pipeline completed successfully!'
         }
 
         failure {
-            echo "Pipeline failed."
+            echo 'Pipeline failed!'
         }
 
         always {
