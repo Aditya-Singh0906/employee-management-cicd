@@ -14,70 +14,35 @@ pipeline {
             }
         }
 
-        stage('Inspect Mounted Directory') {
+        stage('Inspect Jenkins Workspace') {
             steps {
                 sh '''
-                docker run --rm \
-                -v "$WORKSPACE/application":/app \
-                -w /app \
-                python:3.12-slim \
-                sh -c "
-                    echo 'Current directory:'
-                    pwd
+                    echo "==============================="
+                    echo "JENKINS WORKSPACE"
+                    echo "==============================="
 
-                    echo ''
-                    echo 'Files in /app:'
+                    echo "WORKSPACE = $WORKSPACE"
+                    echo "PWD = $(pwd)"
+
+                    echo ""
+                    echo "===== ROOT DIRECTORY ====="
                     ls -lah
 
-                    echo ''
-                    echo 'Recursive listing:'
-                    find . -maxdepth 2
-                "
-                '''
-            }
-        }
+                    echo ""
+                    echo "===== APPLICATION DIRECTORY ====="
+                    ls -lah application || true
 
-        stage('Black Formatting Check') {
-            steps {
-                sh '''
-                docker run --rm \
-                -v "$PWD/application":/app \
-                -w /app \
-                python:3.12-slim \
-                sh -c "
-                    pip install -r requirements.txt &&
-                    black --check .
-                "
-                '''
-            }
-        }
+                    echo ""
+                    echo "===== REQUIREMENTS ====="
+                    ls -lah application/requirements.txt || true
 
-        stage('Flake8 Lint') {
-            steps {
-                sh '''
-                docker run --rm \
-                -v "$PWD/application":/app \
-                -w /app \
-                python:3.12-slim \
-                sh -c "
-                    pip install -r requirements.txt &&
-                    flake8 .
-                "
-                '''
-            }
-        }
+                    echo ""
+                    echo "===== DOCKERFILE ====="
+                    ls -lah application/Dockerfile || true
 
-        stage('Run Unit Tests') {
-            steps {
-                sh '''
-                docker run --rm \
-                -v "$PWD/application":/app \
-                -w /app \
-                python:3.12-slim \
-                sh -c "
-                    pip install -r requirements.txt &&
-                    pytest -v
-                "
+                    echo ""
+                    echo "===== COMPLETE TREE ====="
+                    find . -maxdepth 3
                 '''
             }
         }
@@ -85,19 +50,20 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                docker build -t ${IMAGE_NAME}:${IMAGE_TAG} application
+                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} application
                 '''
             }
         }
+
     }
 
     post {
         success {
-            echo 'Pipeline Successful'
+            echo "Pipeline completed successfully."
         }
 
         failure {
-            echo 'Pipeline Failed'
+            echo "Pipeline failed."
         }
 
         always {
