@@ -38,13 +38,24 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                timeout(time: 5, unit: 'MINUTES') {
+                timeout(time: 15, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
         }
 
     }
+
+    stage('Trivy Image Scan') {
+    steps {
+        sh '''
+        docker run --rm \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          aquasec/trivy:latest \
+          image employee-management-api:${BUILD_NUMBER}
+        '''
+    }
+}
 
     post {
         success {
