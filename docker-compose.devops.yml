@@ -44,6 +44,13 @@ services:
     networks:
       - devops
 
+  trivy:
+    image: aquasec/trivy:latest
+    container_name: trivy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - trivy-cache:/root/.cache/
+
 networks:
   devops:
 
@@ -55,3 +62,5 @@ volumes:
   sonar_logs:
 
   sonar_extensions:
+
+  trivy-cache:
