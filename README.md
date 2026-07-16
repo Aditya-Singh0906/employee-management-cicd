@@ -76,16 +76,16 @@ To navigate this comprehensive enterprise project, detailed technical documentat
 
 | Document | Description | Path |
 | :--- | :--- | :--- |
-| **Complete Architecture Guide** | Deep dive into system design, network topography, data flows, and security model. | [`docs/ARCHITECTURE.md`](file:///C:/Users/singh/employee-management-cicd/docs/ARCHITECTURE.md) |
-| **CI/CD Pipeline Breakdown** | Stage-by-stage analysis of the `Jenkinsfile`, SonarQube quality gates, and Trivy scans. | [`docs/CI_CD_PIPELINE.md`](file:///C:/Users/singh/employee-management-cicd/docs/CI_CD_PIPELINE.md) |
-| **Folder & File Anatomy** | Line-by-line breakdown of every file, module, configuration, and directory. | [`docs/FOLDER_STRUCTURE.md`](file:///C:/Users/singh/employee-management-cicd/docs/FOLDER_STRUCTURE.md) |
-| **Technology Stack Specification** | Rationale and best practices for Python, Flask, PostgreSQL, Docker, Jenkins, and AWS. | [`docs/TECH_STACK.md`](file:///C:/Users/singh/employee-management-cicd/docs/TECH_STACK.md) |
-| **Production Deployment Guide** | Step-by-step instructions for deploying to AWS EC2 Ubuntu with Nginx and Docker Compose. | [`docs/DEPLOYMENT_GUIDE.md`](file:///C:/Users/singh/employee-management-cicd/docs/DEPLOYMENT_GUIDE.md) |
-| **SRE Troubleshooting Guide** | Incident response playbooks, debugging steps, and root-cause analysis for common failures. | [`docs/TROUBLESHOOTING_GUIDE.md`](file:///C:/Users/singh/employee-management-cicd/docs/TROUBLESHOOTING_GUIDE.md) |
-| **Enterprise Roadmap** | Phase-by-phase evolution plan covering Terraform, EKS, Helm, ArgoCD, and ELK Stack. | [`docs/PROJECT_ROADMAP.md`](file:///C:/Users/singh/employee-management-cicd/docs/PROJECT_ROADMAP.md) |
-| **Resume & Portfolio Guide** | ATS-optimized bullet points and technical presentation summaries for engineering roles. | [`docs/RESUME_PROJECT_DESCRIPTION.md`](file:///C:/Users/singh/employee-management-cicd/docs/RESUME_PROJECT_DESCRIPTION.md) |
-| **Interview Preparation** | 30+ Senior DevOps and SRE interview questions with detailed, authoritative answers. | [`docs/INTERVIEW_QUESTIONS.md`](file:///C:/Users/singh/employee-management-cicd/docs/INTERVIEW_QUESTIONS.md) |
-| **Enterprise Improvements & Evaluation** | Architecture evaluation, vulnerability remediation, and 2026 Senior Interviewer critique. | [`docs/ENTERPRISE_IMPROVEMENTS_AND_EVALUATION.md`](file:///C:/Users/singh/employee-management-cicd/docs/ENTERPRISE_IMPROVEMENTS_AND_EVALUATION.md) |
+| **Complete Architecture Guide** | Deep dive into system design, network topography, data flows, and security model. | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) |
+| **CI/CD Pipeline Breakdown** | Stage-by-stage analysis of the `Jenkinsfile`, SonarQube quality gates, and Trivy scans. | [`docs/CI_CD_PIPELINE.md`](docs/CI_CD_PIPELINE.md) |
+| **Folder & File Anatomy** | Line-by-line breakdown of every file, module, configuration, and directory. | [`docs/FOLDER_STRUCTURE.md`](docs/FOLDER_STRUCTURE.md) |
+| **Technology Stack Specification** | Rationale and best practices for Python, Flask, PostgreSQL, Docker, Jenkins, and AWS. | [`docs/TECH_STACK.md`](docs/TECH_STACK.md) |
+| **Production Deployment Guide** | Step-by-step instructions for deploying to AWS EC2 Ubuntu with Nginx and Docker Compose. | [`docs/DEPLOYMENT_GUIDE.md`](docs/DEPLOYMENT_GUIDE.md) |
+| **SRE Troubleshooting Guide** | Incident response playbooks, debugging steps, and root-cause analysis for common failures. | [`docs/TROUBLESHOOTING_GUIDE.md`](docs/TROUBLESHOOTING_GUIDE.md) |
+| **Enterprise Roadmap** | Phase-by-phase evolution plan covering Terraform, EKS, Helm, ArgoCD, and ELK Stack. | [`docs/PROJECT_ROADMAP.md`](docs/PROJECT_ROADMAP.md) |
+| **Resume & Portfolio Guide** | ATS-optimized bullet points and technical presentation summaries for engineering roles. | [`docs/RESUME_PROJECT_DESCRIPTION.md`](docs/RESUME_PROJECT_DESCRIPTION.md) |
+| **Interview Preparation** | 30+ Senior DevOps and SRE interview questions with detailed, authoritative answers. | [`docs/INTERVIEW_QUESTIONS.md`](docs/INTERVIEW_QUESTIONS.md) |
+| **Enterprise Improvements & Evaluation** | Architecture evaluation, vulnerability remediation, and 2026 Senior Interviewer critique. | [`docs/ENTERPRISE_IMPROVEMENTS_AND_EVALUATION.md`](docs/ENTERPRISE_IMPROVEMENTS_AND_EVALUATION.md) |
 
 ---
 
